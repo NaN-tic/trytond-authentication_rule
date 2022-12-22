@@ -10,6 +10,7 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
     'Authentication Rule'
     __name__ = 'authentication.rule'
 
+    name = fields.Char('Name')
     user = fields.Many2One('res.user', 'User')
     group = fields.Many2One('res.group', 'Group')
     ip_address = fields.Char('IP Address or Network', help='IPv4 or IPv6 IP '
