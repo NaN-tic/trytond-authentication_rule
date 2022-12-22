@@ -1,4 +1,5 @@
 <tree sequence="sequence">
+    <field name="name"/>
     <field name="user"/>
     <field name="group"/>
     <field name="ip_address"/>
