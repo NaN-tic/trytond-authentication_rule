@@ -1,0 +1,17 @@
+<form>
+    <label name="sequence"/>
+    <field name="sequence"/>
+    <newline/>
+    <group string="Matching" id="matching" col="2" yexpand="1" yfill="1">
+        <label name="user"/>
+        <field name="user"/>
+        <label name="group"/>
+        <field name="group"/>
+        <label name="ip_address"/>
+        <field name="ip_address"/>
+    </group>
+    <group string="Action" id="action" col="2" yexpand="1" yfill="1">
+        <label name="action"/>
+        <field name="action"/>
+    </group>
+</form>

@@ -1,0 +1,61 @@
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="authentication_rule_view_tree">
+            <field name="model">authentication.rule</field>
+            <field name="type">tree</field>
+            <field name="name">authentication_rule_list</field>
+        </record>
+        <record model="ir.ui.view" id="authentication_rule_view_form">
+            <field name="model">authentication.rule</field>
+            <field name="type">form</field>
+            <field name="name">authentication_rule_form</field>
+        </record>
+        <record model="ir.action.act_window" id="act_authentication_rule_form">
+            <field name="name">Authentication Rules</field>
+            <field name="res_model">authentication.rule</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_authentication_rule_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="authentication_rule_view_tree"/>
+            <field name="act_window" ref="act_authentication_rule_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_authentication_rule_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="authentication_rule_view_form"/>
+            <field name="act_window" ref="act_authentication_rule_form"/>
+        </record>
+        <record model="ir.model.access" id="access_authentication_rule">
+            <field name="model" search="[('model', '=', 'authentication.rule')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_authentication_rule_admin">
+            <field name="model" search="[('model', '=', 'authentication.rule')]"/>
+            <field name="group" ref="res.group_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.button" id="login_attempt_allow_button">
+            <field name="name">allow</field>
+            <field name="string">Allow</field>
+            <field name="model" search="[('model', '=', 'res.user.login.attempt')]"/>
+        </record>
+        <record model="ir.model.button-res.group" id="printer_update_info_button_group_admin">
+            <field name="button" ref="login_attempt_allow_button"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+
+        <menuitem name="Authentication Rules" parent="res.menu_res"
+            action="act_authentication_rule_form" id="menu_authentication_rule"/>
+
+        <record model="ir.ui.menu-res.group" id="menu_authentication_rule_group_admin">
+            <field name="menu" ref="menu_authentication_rule"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+    </data>
+</tryton>
