@@ -11,6 +11,8 @@
         <field name="group"/>
         <label name="ip_address"/>
         <field name="ip_address"/>
+        <label name="client"/>
+        <field name="client"/>
     </group>
     <group string="Action" id="action" col="2" yexpand="1" yfill="1">
         <label name="action"/>

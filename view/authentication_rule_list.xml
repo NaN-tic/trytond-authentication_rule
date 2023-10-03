@@ -3,5 +3,6 @@
     <field name="user"/>
     <field name="group"/>
     <field name="ip_address"/>
+    <field name="client"/>
     <field name="action"/>
 </tree>
