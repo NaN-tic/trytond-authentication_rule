@@ -3,7 +3,7 @@ from trytond.transaction import Transaction
 import ipaddress
 
 
-def is_user_id_allowed(user_id):
+def is_user_id_allowed(user_id, parameters):
     pool = Pool()
     Rule = pool.get('authentication.rule')
     User = pool.get('res.user')
@@ -16,6 +16,8 @@ def is_user_id_allowed(user_id):
     remote_addr = context.get('_request', {}).get('remote_addr')
     if remote_addr:
         pattern['ip_address'] = ipaddress.ip_address(remote_addr)
+    if 'client' in parameters:
+        pattern['client'] = parameters['client']
     for rule in Rule.search([]):
         if rule.match(pattern):
             return rule.action == 'allow'
@@ -28,6 +30,6 @@ class User(metaclass=PoolMeta):
     @classmethod
     def _login_password(cls, login, parameters):
         user_id = super()._login_password(login, parameters)
-        if user_id and is_user_id_allowed(user_id):
+        if user_id and is_user_id_allowed(user_id, parameters):
             return user_id
 
