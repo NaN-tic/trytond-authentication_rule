@@ -52,11 +52,7 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
             return ipaddress.ip_address(self.ip_address)
 
     def match(self, pattern):
-        if 'users' in pattern:
-            pattern = pattern.copy()
-            users = pattern.pop('users')
-            if self.user and self.user.id not in users:
-                return False
+
         if 'groups' in pattern:
             pattern = pattern.copy()
             groups = pattern.pop('groups')
@@ -71,4 +67,5 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
             if (self.get_ip_address() and ip_address != self.get_ip_address()):
                 return False
 
+        # User is matching in super().match(pattern)
         return super().match(pattern)
