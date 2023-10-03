@@ -20,6 +20,7 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
             ('allow', 'Allow'),
             ('deny', 'Deny'),
             ], 'Action', required=True)
+    client = fields.Char('Client')
 
     @classmethod
     def validate(cls, rules):
@@ -66,6 +67,4 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
                 return False
             if (self.get_ip_address() and ip_address != self.get_ip_address()):
                 return False
-
-        # User is matching in super().match(pattern)
         return super().match(pattern)
