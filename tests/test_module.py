@@ -23,35 +23,40 @@ class AutheticationRuleTestCase(ModuleTestCase):
 
     @with_transaction()
     def test_match(self):
-        group1 = pool_create('res.group', name = 'group_test1')
+        group1 = pool_create('res.group', name='group_test1')
         user = pool_create('res.user',
                            name='test',
                            login='test',
                            password='viva1!match',
                            groups=[group1])
-        group2 = pool_create('res.group', name = 'group_test2')
+        group2 = pool_create('res.group', name='group_test2')
         rule_group2 = pool_create('authentication.rule',
-                                  name = 'test1',
-                                  group = group2,
-                                  action = 'allow')
+                                  name='test1',
+                                  group=group2,
+                                  action='allow')
         rule_user1 = pool_create('authentication.rule',
                                  name='test1',
-                                 user = user,
-                                 action = 'allow')
+                                 user=user,
+                                 action='allow')
 
-        rule_ip_address = pool_create('authentication.rule',
-                                  name = 'test1',
-                                  ip_address = '192.162.1.0/24',
-                                  action = 'allow')
         rule_u1_and_g2 = pool_create('authentication.rule',
-                                     name = 'test1',
-                                     user = user,
-                                     group = group2,
-                                     action = 'allow')
+                                     name='test1',
+                                     user=user,
+                                     group=group2,
+                                     action='allow')
 
         rule_empty_match_all = pool_create('authentication.rule',
-                                     name = 'test1',
-                                     action = 'allow')
+                                     name='test1',
+                                     action='allow')
+
+        rule_ip_address = pool_create('authentication.rule',
+                                  name='test1',
+                                  ip_address='192.162.1.0/24',
+                                  action='allow')
+        rule_client = pool_create('authentication.rule',
+                                  name='test1',
+                                  client='test',
+                                  action='allow')
 
         self.assertTrue(rule_group2.match({'user': user.id,
                                            'groups': [group2.id]}))
@@ -70,5 +75,8 @@ class AutheticationRuleTestCase(ModuleTestCase):
                                                     'groups': []}))
         self.assertFalse(rule_ip_address.match({'ip_address': '192.162.2.3'}))
         self.assertTrue(rule_ip_address.match({'ip_address': '192.162.1.3'}))
+        self.assertTrue(rule_client.match({'client': 'test'}))
+        self.assertFalse(rule_client.match({'client': 'testDenail'}))
+        self.assertTrue(rule_client.match({}))
 
 del ModuleTestCase
