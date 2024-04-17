@@ -25,14 +25,14 @@
             <field name="act_window" ref="act_authentication_rule_form"/>
         </record>
         <record model="ir.model.access" id="access_authentication_rule">
-            <field name="model" search="[('model', '=', 'authentication.rule')]"/>
+            <field name="model">authentication.rule</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
         <record model="ir.model.access" id="access_authentication_rule_admin">
-            <field name="model" search="[('model', '=', 'authentication.rule')]"/>
+            <field name="model">authentication.rule</field>
             <field name="group" ref="res.group_admin"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -43,7 +43,7 @@
         <record model="ir.model.button" id="login_attempt_allow_button">
             <field name="name">allow</field>
             <field name="string">Allow</field>
-            <field name="model" search="[('model', '=', 'res.user.login.attempt')]"/>
+            <field name="model">res.user.login.attempt</field>
         </record>
         <record model="ir.model.button-res.group" id="printer_update_info_button_group_admin">
             <field name="button" ref="login_attempt_allow_button"/>
