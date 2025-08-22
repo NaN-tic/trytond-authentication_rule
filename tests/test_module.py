@@ -61,6 +61,9 @@ class AutheticationRuleTestCase(ModuleTestCase):
 
         self.assertTrue(rule_user1.match({'user': user.id,
                                           'groups': [group2.id]}))
+        self.assertTrue(rule_user1.match({'user': user.id,
+                                          'groups': [group2.id],
+                                          'client': None}))
 
         self.assertTrue(rule_u1_and_g2.match({'user': user.id,
                                               'groups': [group2.id]}))
@@ -76,5 +79,6 @@ class AutheticationRuleTestCase(ModuleTestCase):
         self.assertTrue(rule_client.match({'client': 'test'}))
         self.assertFalse(rule_client.match({'client': 'testDenail'}))
         self.assertTrue(rule_client.match({}))
+        self.assertFalse(rule_client.match({'client': None}))
 
 del ModuleTestCase
