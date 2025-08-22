@@ -18,6 +18,8 @@ def is_user_id_allowed(user_id, parameters):
         pattern['ip_address'] = ipaddress.ip_address(remote_addr)
     if 'client' in parameters:
         pattern['client'] = parameters['client']
+    else:
+        pattern['client'] = None
     for rule in Rule.search([]):
         if rule.match(pattern):
             return rule.action == 'allow'
