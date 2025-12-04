@@ -2,7 +2,7 @@
 import ipaddress
 from trytond.model import (sequence_ordered, ModelSQL, ModelView, MatchMixin,
     fields)
-from trytond.exceptions import UserError
+from trytond.model.exceptions import ValidationError
 from trytond.i18n import gettext
 
 
@@ -36,7 +36,7 @@ class AuthenticationRule(sequence_ordered(), ModelSQL, ModelView, MatchMixin):
             else:
                 ipaddress.ip_address(self.ip_address)
         except ValueError:
-            raise UserError(gettext('authentication_rule.invalid_ip_address',
+            raise ValidationError(gettext('authentication_rule.invalid_ip_address',
                     ip=self.ip_address,
                     rule=self.rec_name))
 
